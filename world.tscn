@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d0eryupwxmat4"]
+
+[ext_resource type="Script" uid="uid://dx77jbqjxhtn5" path="res://world.gd" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bxgnx84nb8e5h" path="res://player.tscn" id="2_fj7yv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eat54"]
+noise_type = 0
+
+[sub_resource type="Environment" id="Environment_f3sb7"]
+background_mode = 1
+background_color = Color(0.5647059, 0.8156863, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guk6m"]
+albedo_color = Color(1, 0.7529412, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bae8c"]
+material = SubResource("StandardMaterial3D_guk6m")
+
+[node name="World" type="Node" unique_id=983588582]
+script = ExtResource("1_f3sb7")
+noise = SubResource("FastNoiseLite_eat54")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2057763092]
+environment = SubResource("Environment_f3sb7")
+
+[node name="SunOne" type="DirectionalLight3D" parent="." unique_id=734183990]
+transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, 0, 0, 0)
+light_energy = 0.25
+sky_mode = 1
+
+[node name="SunTwo" type="DirectionalLight3D" parent="." unique_id=569147418]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999994, 0, 0.70710677, 0.70710677, 0.7071067, 0.5, -0.5, 0, 0, 0)
+light_energy = 0.25
+sky_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=225413372]
+mesh = SubResource("BoxMesh_bae8c")
+
+[node name="Chunks" type="Node3D" parent="." unique_id=127412820]
+
+[node name="Player" parent="." unique_id=1519489352 instance=ExtResource("2_fj7yv")]
