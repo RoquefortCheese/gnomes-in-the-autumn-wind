@@ -15,6 +15,7 @@ var timesinceground = 0
 var justjumped = false
 
 func _ready():
+	Global.player = self
 	$Camera3D.rotation.y = randf() * TAU
 	panning.x = $Camera3D.rotation.y
 
@@ -39,8 +40,8 @@ func movementinput():
 			if timesinceground <= coyotetime and not justjumped:
 				velocity.y = jumpspeed
 				justjumped = true
-			else:
-				velocity.y = -32
+			#else:
+				#velocity.y = -32
 
 func pancamera(delta: float):
 	for axis in 2:
@@ -58,6 +59,7 @@ func _physics_process(delta: float):
 	#var stepping = test_move(transform, testvel) and not test_move(testform, testvel)
 	#if stepping and is_on_floor():
 		#velocity.y += 8
+	velocity.y = max(velocity.y, -12)
 	move_and_slide()
 	timesinceground += delta
 	if is_on_floor():
@@ -70,12 +72,3 @@ func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			panning += event.relative * sensitivity
-	#if event.is_pressed() and is_instance_of(event, InputEventKey):
-		#var char = event.as_text()
-		#if char.is_valid_int():
-			#var digit = (int(char) + 9) % 10
-			#$AudioStreamPlayer.pitch_scale = 2 ** (digit / 9.)
-			#$AudioStreamPlayer.play()
-	#if event.is_action_pressed("click"):
-		#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			#var target = $Camera3D/RayCast3D.get_collider()

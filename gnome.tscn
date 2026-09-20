@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bck3tsl8rtpon"]
+
+[ext_resource type="Script" uid="uid://brmh7cyiwrr0" path="res://gnome.gd" id="1_5vlar"]
+[ext_resource type="Texture2D" uid="uid://caow255imx42e" path="res://gnome.png" id="1_cna81"]
+[ext_resource type="AudioStream" uid="uid://bljpvvdh21dvy" path="res://mi.wav" id="2_qe4o5"]
+[ext_resource type="Texture2D" uid="uid://dua16071xwor8" path="res://goldgnome.png" id="3_dt2vp"]
+[ext_resource type="Texture2D" uid="uid://c24ob7g3qqwhc" path="res://raregnome.png" id="4_4jxkh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bae8c"]
+height = 1.5
+radius = 0.75
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe4o5"]
+atlas = ExtResource("1_cna81")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vlar"]
+atlas = ExtResource("1_cna81")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jxkh"]
+atlas = ExtResource("3_dt2vp")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yl2l"]
+atlas = ExtResource("3_dt2vp")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiii2"]
+atlas = ExtResource("4_4jxkh")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5a4p"]
+atlas = ExtResource("4_4jxkh")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bae8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qe4o5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vlar")
+}],
+"loop": 1,
+"name": &"idling-blue",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jxkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yl2l")
+}],
+"loop": 1,
+"name": &"idling-gold",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiii2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5a4p")
+}],
+"loop": 1,
+"name": &"idling-mage",
+"speed": 3.0
+}]
+
+[node name="Gnome" type="CharacterBody3D" unique_id=2126876254]
+script = ExtResource("1_5vlar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=389546687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CylinderShape3D_bae8c")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=649929688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+pixel_size = 0.15
+billboard = 2
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_bae8c")
+animation = &"idling-mage"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1534762032]
+stream = ExtResource("2_qe4o5")
+unit_size = 6.0
+max_db = 0.0

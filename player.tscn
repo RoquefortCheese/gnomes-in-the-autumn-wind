@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://bxgnx84nb8e5h"]
 
 [ext_resource type="Script" uid="uid://biku3rrowfc18" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Shader" uid="uid://cei3g7c27tktf" path="res://post.gdshader" id="2_onrkg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 radius = 0.4
 height = 2.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4flbx"]
+shader = ExtResource("2_onrkg")
 
 [node name="Player" type="CharacterBody3D" unique_id=1519489352]
 script = ExtResource("1_4flbx")
@@ -16,3 +20,12 @@ shape = SubResource("CapsuleShape3D_4flbx")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=195662695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 fov = 90.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=4067790]
+visible = false
+material = SubResource("ShaderMaterial_4flbx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
