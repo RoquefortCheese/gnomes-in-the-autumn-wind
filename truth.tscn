@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cd876myj64u63"]
+
+[ext_resource type="Texture2D" uid="uid://8uq5ndrr5fo4" path="res://glaggle.jpeg" id="1_bmp4j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guk6m"]
+albedo_texture = ExtResource("1_bmp4j")
+metallic_specular = 1.0
+uv1_scale = Vector3(2, 2, 2)
+texture_repeat = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_bae8c"]
+material = SubResource("StandardMaterial3D_guk6m")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bae8c"]
+
+[node name="Truth" type="StaticBody3D" unique_id=33581031]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1327968252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_bae8c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1140238286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_bae8c")

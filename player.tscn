@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://biku3rrowfc18" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Shader" uid="uid://cei3g7c27tktf" path="res://post.gdshader" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cvrrm5rwaaclh" path="res://icon.svg" id="3_i3pqv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 radius = 0.4
@@ -9,6 +10,15 @@ height = 2.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4flbx"]
 shader = ExtResource("2_onrkg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guk6m"]
+albedo_texture = ExtResource("3_i3pqv")
+texture_filter = 2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bae8c"]
+material = SubResource("StandardMaterial3D_guk6m")
+radius = 0.4
+height = 2.75
 
 [node name="Player" type="CharacterBody3D" unique_id=1519489352]
 script = ExtResource("1_4flbx")
@@ -29,3 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676450160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.375, 0)
+mesh = SubResource("CapsuleMesh_bae8c")

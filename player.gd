@@ -4,28 +4,28 @@ class_name Player
 # repurposed from lightsource
 # thank you past me
 
-const sensitivity = -0.005
-const speed = 6
-const gravity = 20
-const jumpspeed = 16
-const coyotetime = 0.25
+const sensitivity := -0.005
+const speed := 6
+const gravity := 20
+const jumpspeed := 16
+const coyotetime := 0.25
 
 var panning: Vector2
-var timesinceground = 0
-var justjumped = false
+var timesinceground := 0.
+var justjumped := false
 
-func _ready():
+func _ready() -> void:
 	Global.player = self
 	$Camera3D.rotation.y = randf() * TAU
 	panning.x = $Camera3D.rotation.y
 
-func _process(delta: float):
+func _process(delta: float) -> void:
 	movementinput()
 	pancamera(delta)
 
-func movementinput():
+func movementinput() -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var direction = Vector2.ZERO
+		var direction := Vector2.ZERO
 		if Input.is_action_pressed("forward"):
 			direction += Vector2.UP
 		if Input.is_action_pressed("back"):
@@ -34,7 +34,7 @@ func movementinput():
 			direction += Vector2.LEFT
 		if Input.is_action_pressed("right"):
 			direction += Vector2.RIGHT
-		direction = direction.normalized().rotated(-$Camera3D.rotation.y) * speed
+		direction = direction.normalized().rotated(-($Camera3D as Node3D).rotation.y) * speed
 		velocity = Vector3(direction.x, velocity.y, direction.y)
 		if Input.is_action_just_pressed("jump"):
 			if timesinceground <= coyotetime and not justjumped:
@@ -43,15 +43,16 @@ func movementinput():
 			#else:
 				#velocity.y = -32
 
-func pancamera(delta: float):
+func pancamera(delta: float) -> void:
 	for axis in 2:
-		var correction = 1 - 2 ** (delta * -32)
-		var spin = (panning[axis] - $Camera3D.rotation[1 - axis]) * correction
+		var correction := 1 - 2 ** (delta * -32)
+		var spin := (panning[axis] - ($Camera3D as Node3D).rotation[1 - axis]) * correction
 		$Camera3D.rotation[1 - axis] += spin
 		panning[axis] -= spin
 	$Camera3D.rotation.x = clamp($Camera3D.rotation.x, -PI / 2, PI / 2)
+	$MeshInstance3D.rotation.y = $Camera3D.rotation.y + PI
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	velocity.y -= gravity * delta
 	#var testform = transform
 	#testform.origin.y += 1.001
@@ -66,7 +67,7 @@ func _physics_process(delta: float):
 		timesinceground = 0
 		justjumped = false
 
-func _input(event: InputEvent):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event is InputEventMouseMotion:
